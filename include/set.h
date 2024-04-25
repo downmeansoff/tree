@@ -17,6 +17,8 @@ public:
 	node* copy(node* root);
 	bool equal(const node* first, const node* second);
 	bool operator==(const binary_tree& second);
+	bool contains(int key);
+	bool insert(int key);
 
 	int get_root_value();
 	

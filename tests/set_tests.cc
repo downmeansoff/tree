@@ -18,3 +18,14 @@ TEST(tree_test, copy_constructor) {
 	binary_tree copy(bt);
 	ASSERT_TRUE(copy == bt);
 }
+
+TEST(tree_test, contains) {
+	binary_tree bt(1);
+	ASSERT_TRUE(bt.contains(1));
+}
+
+TEST(tree_test, insert) {
+	binary_tree bt(1);
+	bt.insert(2);
+	ASSERT_TRUE(bt.contains(2));
+}

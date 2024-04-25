@@ -33,6 +33,52 @@ int binary_tree::get_root_value() {
 	return _root->data;//need for tests
 }
 
+bool binary_tree::contains(int key) {
+	//since we have a search tree, the right side contains elements that are larger than the current one
+	//and on the left - smaller
+	node* tmp = _root;
+	while (tmp) {//while root exists
+		if (tmp->data == key) return true;//found
+		if (tmp->data > key) {//if current value larger than key. look for in left subtree
+			tmp = tmp->left;
+		}
+		else tmp = tmp->right;
+	}
+	return false;
+}
+
+
+bool binary_tree::insert(int key) {
+	auto new_node = new node{ key, nullptr, nullptr };
+	//replace head if head is null
+	if (!_root) {
+		_root = new_node;
+		return true;
+	}
+	node* tmp = _root;
+
+	while (tmp) {//while root exist try to find position for insert
+		//if there is such a node, then we dont insert
+		if (tmp->data == key) return false;
+		//else find position for insert
+		if (tmp->data > key) {//if current value larger than key. look for in left subtree
+			if (!tmp->left) {//if node=nullptr insert new value
+				tmp->left = new_node;
+				return true;
+			}
+			tmp = tmp->left;
+		}
+		else {//search in right subtree
+			if (!tmp->right) {//if node=nullptr insert new value
+				tmp->right = new_node;
+				return true;
+			}
+			tmp = tmp->right;
+		}
+	}
+	return false;
+}
+
 
 bool binary_tree::equal(const node* first, const node* second) {//needs for operator==
 	//params: first tree`s root and second`s root
