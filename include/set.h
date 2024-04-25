@@ -10,6 +10,13 @@ class binary_tree {
 public:
 	binary_tree();
 	binary_tree(const int val);
+	binary_tree(const binary_tree& other);
+
+	void swap(binary_tree& other);
+	binary_tree& operator=(binary_tree other);
+	node* copy(node* root);
+	bool equal(const node* first, const node* second);
+	bool operator==(const binary_tree& second);
 
 	int get_root_value();
 	
