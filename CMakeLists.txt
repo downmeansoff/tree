@@ -33,3 +33,6 @@ target_include_directories(set PUBLIC "include")
 # Объявляем тесты
 add_executable( set_tests "tests/set_tests.cc")
 target_link_libraries(set_tests set GTest::gtest_main)
+
+add_executable( stat "statistics/stat.cc")
+target_link_libraries(stat set)
