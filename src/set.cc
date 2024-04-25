@@ -80,6 +80,50 @@ bool binary_tree::insert(int key) {
 }
 
 
+bool binary_tree::erase(int key) {
+	return _erase(_root, key);
+}
+
+bool binary_tree::_erase(node*& node_,int key) {//recursive _erase needs for erase
+	if (!node_) {//if root is not exist return false....
+		return false;
+	}
+	// If the key is less than current node's data, 
+	//recursively call _erase on the left subtree.
+	if (key < node_->data) {
+		return _erase(node_->left, key);
+	}
+	// If the key is greater than current node's data,
+	//recursively call _erase on the right subtree.
+	else if (key > node_->data) {
+		return _erase(node_->right, key);
+	}
+	else {
+		if (!node_->left) {//if only right child -> replace deleted node with the right child
+			auto tmp = node_->right;
+			delete node_;
+			node_ = tmp;
+			return true;
+		}
+		else if (!node_->right) {//if only left child -> replace deleted node with the left child
+			auto tmp = node_->left;
+			delete node_;
+			node_ = tmp;
+			return true;
+		}
+		// If the current node has both left and right children.
+		auto min_right = node_->right;
+		while (min_right->left) {
+			// Find the minimum node in the right subtree.
+			min_right = min_right->left;
+		}
+		// Replace the current node's data with the data of the minimum node in the right subtree.
+		node_->data = min_right->data;
+		// Recursively call _erase to remove the minimum node from the right subtree.
+		return _erase(node_->right, min_right->data);
+	}
+}
+
 bool binary_tree::equal(const node* first, const node* second) {//needs for operator==
 	//params: first tree`s root and second`s root
 	if (!first && !second) return true;//if both null 
@@ -88,6 +132,31 @@ bool binary_tree::equal(const node* first, const node* second) {//needs for oper
 		return first->data == second->data && equal(first->left, second->left) && equal(first->right, second->right);
 	}
 	return false;
+}
+
+
+void binary_tree::_clear(node* root) {//needs for destructor
+	if (!root) return;//if root not exist return
+	_clear(root->left);//recursively delete left subtree
+	_clear(root->right);//right
+	delete root;
+}
+
+binary_tree::~binary_tree() {
+	_clear(_root);
+	_root = nullptr;
+}
+
+void binary_tree::_print(const node* root) {//recursive _print needs for print
+	//root -> left -> right
+	if (!root) return;
+	std::cout << root->data << " ";
+	_print(root->left);
+	_print(root->right);
+}
+
+void binary_tree::print() {//print root->left->right
+	_print(_root);
 }
 
 bool binary_tree::operator==(const binary_tree& second) {

@@ -19,7 +19,13 @@ public:
 	bool operator==(const binary_tree& second);
 	bool contains(int key);
 	bool insert(int key);
+	bool _erase(node*& node_, int key);
+	bool erase(int key);
+	void _clear(node* root);
+	void _print(const node* root);
+	void print();
 
 	int get_root_value();
-	
+
+	~binary_tree();
 };

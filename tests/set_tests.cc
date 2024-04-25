@@ -29,3 +29,33 @@ TEST(tree_test, insert) {
 	bt.insert(2);
 	ASSERT_TRUE(bt.contains(2));
 }
+
+TEST(tree_test, erase_item_in_tail) {
+	binary_tree bt(1);
+	bt.insert(9);
+	bt.insert(4);
+	bt.erase(4);
+	binary_tree bt1(1);
+	bt1.insert(9);
+	ASSERT_TRUE(bt == bt1);
+}
+
+TEST(tree_test, erase_item_in_middle) {
+	binary_tree bt(1);
+	bt.insert(9);
+	bt.insert(4);
+	bt.erase(9);
+	binary_tree bt1(1);
+	bt1.insert(4);
+	ASSERT_TRUE(bt == bt1);
+}
+
+TEST(tree_test, erase_item_in_head) {
+	binary_tree bt(1);
+	bt.insert(9);
+	bt.insert(4);
+	bt.erase(1);
+	binary_tree bt1(9);
+	bt1.insert(4);
+	ASSERT_TRUE(bt == bt1);
+}
