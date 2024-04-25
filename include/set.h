@@ -1,3 +1,5 @@
+#include <vector>
+
 struct node {
 	int data;
 	node* left;
@@ -24,8 +26,12 @@ public:
 	void _clear(node* root);
 	void _print(const node* root);
 	void print();
+	void insert_in_vector(const node* other, std::vector<int>& vec);
+	std::vector<int> to_vector();
 
 	int get_root_value();
 
 	~binary_tree();
 };
+
+std::vector<int> make_unique(std::vector<int> vector);

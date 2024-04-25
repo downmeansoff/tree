@@ -1,5 +1,6 @@
 #include <set.h>
 #include <iostream>
+#include <vector>
 
 //default constructor
 binary_tree::binary_tree() : _root(nullptr) {};
@@ -161,4 +162,32 @@ void binary_tree::print() {//print root->left->right
 
 bool binary_tree::operator==(const binary_tree& second) {
 	return equal(_root,second._root);
+}
+
+void binary_tree::insert_in_vector(const node* other, std::vector<int>& vec) {//insert values in vector(left->root->right)
+	if (!other) {
+		return;
+	}
+	insert_in_vector(other->left, vec);
+	vec.push_back(other->data);
+	insert_in_vector(other->right, vec);
+}
+
+std::vector<int> binary_tree::to_vector() {
+	std::vector <int> convert;
+	insert_in_vector(_root, convert);
+	return convert;
+}
+
+std::vector<int> make_unique(std::vector<int> vector) {//we add the vector values 
+	//to the tree (there are only unique values in the tree) then we again convert the tree into a vector
+	if (vector.empty())
+		throw std::runtime_error("vector is empty");
+	std::vector<int> result;
+	binary_tree tree(vector[0]);
+	for (size_t i = 1; i < vector.size();++i) {
+		tree.insert(vector[i]);
+	}
+	result = tree.to_vector();
+	return result;
 }

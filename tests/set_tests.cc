@@ -59,3 +59,17 @@ TEST(tree_test, erase_item_in_head) {
 	bt1.insert(4);
 	ASSERT_TRUE(bt == bt1);
 }
+
+TEST(task_test, make_uni_vector) {
+	std::vector<int> vec;
+	vec.push_back(1);
+	vec.push_back(1);
+	vec.push_back(1);
+	vec.push_back(2);
+	vec.push_back(2);
+	std::vector<int> unique = make_unique(vec);
+	std::vector<int> result;
+	result.push_back(1);
+	result.push_back(2);
+	ASSERT_TRUE(unique == result);
+}
